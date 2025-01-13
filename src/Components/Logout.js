@@ -11,7 +11,7 @@ const Logout = () => {
         // Request to invalidate refresh token
         await axiosInstance.post('/users/logout', {}, { withCredentials: true });
 
-        // Clear access token and user data from local storage
+        // Clears the access token and user data from local storage
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
 

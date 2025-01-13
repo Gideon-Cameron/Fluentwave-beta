@@ -32,7 +32,7 @@ const Login = () => {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('user', JSON.stringify(user));
 
-      console.log('Token and user data saved to localStorage');
+      console.log('Token and user data has been saved to localStorage');
 
       // Redirect to the dashboard
       navigate('/');

@@ -26,7 +26,7 @@ const ProtectedRoute = ({ children }) => {
     verifyAccessToken();
   }, []);
 
-  // Show loading screen during token verification
+  // Show loading screen during token verification.
   if (loading) {
     return <div className="h-screen flex justify-center items-center">Loading...</div>;
   }
