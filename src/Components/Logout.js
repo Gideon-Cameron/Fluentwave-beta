@@ -1,33 +1,27 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../Components/axiosInstance';
 
 const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleLogout = async () => {
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-        navigate('/login');
-        return;
-      }
-
       try {
-        await axios.post('https://fluentwave-backend-beta.onrender.com/api/users/logout', null, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        // Request to invalidate refresh token
+        await axiosInstance.post('/users/logout', {}, { withCredentials: true });
 
-        // Clear local storage and redirect to login page
-        localStorage.removeItem('token');
+        // Clear access token and user data from local storage
+        localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
 
+        // Redirect to login page
         navigate('/login');
       } catch (error) {
         console.error('Logout failed:', error.response?.data || error.message);
-        // Even if logout request fails, clear token and navigate to login
-        localStorage.removeItem('token');
+
+        // Fallback - Clear tokens and navigate to login even if logout fails
+        localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
         navigate('/login');
       }

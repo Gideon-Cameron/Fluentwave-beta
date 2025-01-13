@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../Components/axiosInstance';  // Use axiosInstance
 import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
-  const [name, setName] = useState(''); // Add name for sign-up
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -14,29 +14,30 @@ const Login = () => {
     e.preventDefault();
     try {
       const endpoint = isSignUp
-        ? 'https://fluentwave-backend-beta.onrender.com/api/users/register'
-        : 'https://fluentwave-backend-beta.onrender.com/api/users/login';
+        ? '/users/register'
+        : '/users/login';
 
       const payload = isSignUp
-        ? { name, email, password } // Include name for sign-up
+        ? { name, email, password }
         : { email, password };
 
-      console.log(`Submitting to endpoint: ${endpoint}`); // Debug log
-      const response = await axios.post(endpoint, payload);
-      const { token, data: user } = response.data;
+      console.log(`Submitting to endpoint: ${endpoint}`);
+      const response = await axiosInstance.post(endpoint, payload);
 
-      // Debugging logs for response
-      console.log('Login/Signup successful:', { token, user });
+      const { accessToken, data: user } = response.data;
 
-      // Store the token and user data in localStorage
-      localStorage.setItem('token', token);
+      console.log('Login/Signup successful:', { accessToken, user });
+
+      // Store the access token in localStorage
+      localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('user', JSON.stringify(user));
-      console.log('Token and user data saved to localStorage'); // Debug log
+
+      console.log('Token and user data saved to localStorage');
 
       // Redirect to the dashboard
       navigate('/');
     } catch (err) {
-      console.error('Error during login/signup:', err.response?.data || err.message); // Debug log
+      console.error('Error during login/signup:', err.response?.data || err.message);
       setError(
         err.response?.data?.error || 'Something went wrong. Please try again.'
       );
@@ -51,7 +52,7 @@ const Login = () => {
         </h2>
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
-          {isSignUp && ( // Show name field only when signing up
+          {isSignUp && (
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">Name</label>
               <input
@@ -90,7 +91,7 @@ const Login = () => {
             {isSignUp ? 'Sign Up' : 'Sign In'}
           </button>
         </form>
-        {!isSignUp && ( // Show "Forgot Password?" only on the login form
+        {!isSignUp && (
           <div className="mt-4 text-center">
             <Link
               to="/forgot-password"
