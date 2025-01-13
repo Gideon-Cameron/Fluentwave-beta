@@ -31,7 +31,7 @@ const ProtectedRoute = ({ children }) => {
     return <div className="h-screen flex justify-center items-center">Loading...</div>;
   }
 
-  // Redirect to login if not authenticated
+  // Redirect to login if not authenticated.
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
