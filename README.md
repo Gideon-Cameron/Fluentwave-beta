@@ -1,8 +1,8 @@
 # 🌍 FluentWave – Language Learning App
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/75dc387c-2579-4337-b15d-203d2fdfcf52/deploy-status)](https://app.netlify.com/sites/fluentwave-beta/deploys)
-![License](https://img.shields.io/github/license/Gideon-Cameron/Fluentwave)
-![Stars](https://img.shields.io/github/stars/Gideon-Cameron/Fluentwave?style=social)
+![License](https://img.shields.io/github/license/Gideon-Cameron/Fluentwave-beta)
+![Stars](https://img.shields.io/github/stars/Gideon-Cameron/Fluentwave-beta?style=social)
 
 
 **FluentWave** is an interactive and modern web application for immersive language learning. It combines intuitive UI, progress tracking, and dynamic content delivery to help users master new languages step-by-step.
